@@ -1,0 +1,143 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background-color: rgb(230, 230, 230);
+      }
+      .box {
+        font-size: 16px;
+        padding: 20px;
+        text-align: center;
+        width: 250px;
+        height: 300px;
+        border: 0.5px solid black;
+        border-radius: 10px;
+        box-shadow: 5px 8px 10px rgba(15, 15, 15, 0.3);
+        background-color: #eccc68;
+      }
+      .icon {
+        width: 16px;
+      }
+      .weathericon {
+        margin: auto;
+        width: 80px;
+        padding: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="box">
+      <div class="wave-one"></div>
+      <div class="wave-two"></div>
+      <div class="wave-three"></div>
+
+      <div id="weathercon" class="weathericon"></div>
+      <div class="info">
+        <h2 class="location">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            viewBox="0 0 384 512"
+            class="icon"
+          >
+            <path
+              d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z"
+            />
+          </svg>
+          {%temploc%}, {%country%}
+        </h2>
+        <p id="date">WED | OCT 23 | 10:45 AM</p>
+
+        <h1 class="temp">{%tempval%} &deg;C</h1>
+        <h3 class="tempmin_max">
+          Min {%tempmin%} &deg;C | Max {%tempmax%} &deg;C
+        </h3>
+      </div>
+    </div>
+    <script>
+      const curDate = document.getElementById("date");
+      const weathercon = document.getElementById("weathercon");
+
+      const tempStatus = "{%tempstatus%}";
+      console.log(tempStatus);
+
+      //conditon to check sunny or cloudy
+      if (tempStatus == "Sunny") {
+        weathercon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" style="color:#eccc68">
+          <path
+            d="M361.5 1.2c5 2.1 8.6 6.6 9.6 11.9L391 121l107.9 19.8c5.3 1 9.8 4.6 11.9 9.6s1.5 10.7-1.6 15.2L446.9 256l62.3 90.3c3.1 4.5 3.7 10.2 1.6 15.2s-6.6 8.6-11.9 9.6L391 391 371.1 498.9c-1 5.3-4.6 9.8-9.6 11.9s-10.7 1.5-15.2-1.6L256 446.9l-90.3 62.3c-4.5 3.1-10.2 3.7-15.2 1.6s-8.6-6.6-9.6-11.9L121 391 13.1 371.1c-5.3-1-9.8-4.6-11.9-9.6s-1.5-10.7 1.6-15.2L65.1 256 2.8 165.7c-3.1-4.5-3.7-10.2-1.6-15.2s6.6-8.6 11.9-9.6L121 121 140.9 13.1c1-5.3 4.6-9.8 9.6-11.9s10.7-1.5 15.2 1.6L256 65.1 346.3 2.8c4.5-3.1 10.2-3.7 15.2-1.6zM160 256a96 96 0 1 1 192 0 96 96 0 1 1 -192 0zm224 0a128 128 0 1 0 -256 0 128 128 0 1 0 256 0z"
+          />
+        </svg>`;
+      } else if (tempStatus == "Clouds") {
+        weathercon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" style="color: #f1f2f6"><path d="M0 336c0 79.5 64.5 144 144 144H512c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z"/></svg>`;
+      } else if (tempStatus == "Rainy") {
+        weathercon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" style="#a4b0be"><path d="M288 0c17.7 0 32 14.3 32 32V49.7C451.8 63.4 557.7 161 573.9 285.9c2 15.6-17.3 24.4-27.8 12.7C532.1 283 504.8 272 480 272c-38.7 0-71 27.5-78.4 64.1c-1.7 8.7-8.7 15.9-17.6 15.9s-15.8-7.2-17.6-15.9C359 299.5 326.7 272 288 272s-71 27.5-78.4 64.1c-1.7 8.7-8.7 15.9-17.6 15.9s-15.8-7.2-17.6-15.9C167 299.5 134.7 272 96 272c-24.8 0-52.1 11-66.1 26.7C19.4 310.4 .1 301.5 2.1 285.9C18.3 161 124.2 63.4 256 49.7V32c0-17.7 14.3-32 32-32zm0 304c12.3 0 23.5 4.6 32 12.2V430.6c0 45-36.5 81.4-81.4 81.4c-30.8 0-59-17.4-72.8-45l-2.3-4.7c-7.9-15.8-1.5-35 14.3-42.9s35-1.5 42.9 14.3l2.3 4.7c3 5.9 9 9.6 15.6 9.6c9.6 0 17.4-7.8 17.4-17.4V316.2c8.5-7.6 19.7-12.2 32-12.2z"/></svg>`;
+      } else {
+        weathercon.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512" style="color: #f1f2f6"><path d="M0 336c0 79.5 64.5 144 144 144H512c70.7 0 128-57.3 128-128c0-61.9-44-113.6-102.4-125.4c4.1-10.7 6.4-22.4 6.4-34.6c0-53-43-96-96-96c-19.7 0-38.1 6-53.3 16.2C367 64.2 315.3 32 256 32C167.6 32 96 103.6 96 192c0 2.7 .1 5.4 .2 8.1C40.2 219.8 0 273.2 0 336z"/></svg>`;
+      }
+
+      const getCurrentDay = () => {
+        var weekday = new Array(7);
+        weekday[0] = "Sun";
+        weekday[1] = "Mon";
+        weekday[2] = "Tue";
+        weekday[3] = "Wed";
+        weekday[4] = "Thur";
+        weekday[5] = "Fri";
+        weekday[6] = "Satu";
+        let currentTime = new Date();
+        console.log(weekday[currentTime.getDay()]);
+        let day = weekday[currentTime.getDay()];
+        return day;
+      };
+      getCurrentDay();
+
+      const getCurrentTime = () => {
+        var months = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "June",
+          "July",
+          "Aug",
+          "Sept",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+
+        var now = new Date();
+        var month = months[now.getMonth() + 1];
+        var date = now.getDate();
+
+        let hours = now.getHours();
+        let mins = now.getMinutes();
+
+        let periods = "AM";
+
+        if (hours > 11) {
+          periods = "PM";
+          if (hours > 12) {
+            hours -= 12;
+          }
+        }
+        if (mins < 10) {
+          mins = "0" + mins;
+        }
+        console.log(date);
+
+        return `${month} ${date} | ${hours} : ${mins} ${periods}`;
+      };
+      getCurrentTime();
+      curDate.innerHTML = getCurrentDay() + " | " + getCurrentTime();
+    </script>
+  </body>
+</html>
